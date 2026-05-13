@@ -12,8 +12,8 @@ class Minute extends Model
     // Tambahkan baris ini untuk mengizinkan Laravel menyimpan data ke kolom-kolom ini
     protected $fillable = [
         'meeting_id',
-        'main_content',
-        'items', // Tambahkan ini jika Anda nanti butuh menyimpan JSON items
+        'opening_speech',
+        'closing_statement',
     ];
 
     // Sekalian pastikan Anda punya relasi balik ke Meeting

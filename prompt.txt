@@ -1,0 +1,44 @@
+PROMPT REVISI: Generate LHP & Notulensi Internal Pengadilan Negeri
+Konteks Aplikasi:
+Ini adalah aplikasi internal Pengadilan Negeri untuk manajemen rapat (E-Meeting) dan pembuatan Notulensi/LHP secara otomatis. Target output adalah dokumen resmi kedinasan.
+
+Struktur Database Terbaru:
+Tabel meetings: Metadata rapat (title, start_time, location, leader_name, notary_name, type).
+Tabel minutes: Narasi formal (opening_speech untuk Sambutan/Pembukaan, closing_statement untuk Penutup).
+Tabel meeting_findings: Data temuan audit/monev per baris (problem, condition, cause, recommendation).
+
+Tugas Utama:
+Otomatisasi fitur exportWord di MeetingController agar mendukung 4 template resmi di storage/app/public/templates/.
+
+Instruksi Spesifik:
+Pemilihan Template Berdasarkan Jenis Rapat:
+Gunakan logika match pada $meeting->type:
+BULANAN -> template_bulanan.docx
+HAWASBID -> template_hawasbid.docx
+MONEV_PTIP -> template_monev_ptip.docx
+TINDAK_LANJUT -> template_tindak_lanjut.docx
+
+Variabel Header & Identitas:
+${title}: Judul Rapat (Format: Uppercase).
+${date}: Tanggal Rapat (Wajib format Indonesia, contoh: 13 Mei 2026).
+${leader_name}: Nama Pimpinan Rapat/Hakim Pengawas.
+${notary_name}: Nama Notulis/Sekretaris Rapat.
+${location}: Tempat Pelaksanaan.
+
+Bagian Narasi (Bab I):
+Ambil data dari $meeting->minute->opening_speech.
+Wajib: Bersihkan tag HTML dari Quill, konversi entitas XML, dan ubah new line menjadi <w:br/> agar paragraf di Word tetap rapi sesuai format kedinasan. Variabel di Word: ${opening}.
+Tabel Temuan & Tindak Lanjut (Bab II):
+Gunakan cloneRow pada variabel ${no}.
+Mapping kolom sebagai berikut:
+
+${no}: Nomor urut.
+${permasalahan}: Dari kolom problem.
+${kondisi}: Dari kolom condition.
+${penyebab}: Dari kolom cause.
+${rekomendasi}: Dari kolom recommendation (Tindak Lanjut).
+
+Kualitas Output:
+Gunakan htmlspecialchars dengan ENT_XML1 untuk mencegah file korup akibat karakter khusus.
+Nama file: LHP_[TYPE]_[TANGGAL].docx.
+Gunakan deleteFileAfterSend(true).

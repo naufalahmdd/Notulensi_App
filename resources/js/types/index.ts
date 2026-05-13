@@ -51,3 +51,25 @@ export interface Meeting {
     created_at: string;
     updated_at: string;
 }
+
+export interface Minute {
+    id: number;
+    meeting_id: number;
+    opening_speech?: string;
+    closing_statement?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface MeetingFinding {
+    id: number;
+    meeting_id: number;
+    permasalahan: string;
+    pembahasan?: string;
+    kondisi?: string;
+    penyebab?: string;
+    tindak_lanjut: string;
+    kategori?: string;
+    created_at: string;
+    updated_at: string;
+}

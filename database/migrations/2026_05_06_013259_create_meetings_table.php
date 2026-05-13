@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('end_time')->nullable();
             $table->string('location');
             $table->string('leader_name');
+            $table->string('leader_nip')->nullable();
             $table->string('notary_name');
             $table->enum('status', ['SCHEDULED', 'ONGOING', 'COMPLETED'])->default('SCHEDULED');
             $table->enum('type', ['BULANAN', 'TINDAK_LANJUT', 'HAWASBID', 'MONEV_PTIP']);

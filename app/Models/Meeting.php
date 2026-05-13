@@ -34,4 +34,12 @@ class Meeting extends Model
     {
         return $this->hasMany(ActionItem::class);
     }
+
+    /**
+     * Relasi ke Temuan Rapat (Satu rapat bisa punya banyak temuan)
+     */
+    public function meetingFindings()
+    {
+        return $this->hasMany(MeetingFinding::class);
+    }
 }

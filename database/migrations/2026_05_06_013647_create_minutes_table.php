@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('minutes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('meeting_id')->constrained()->onDelete('cascade');
-            $table->longText('main_content');
+            $table->longText('opening_speech')->nullable();
+            $table->longText('closing_statement')->nullable();
             $table->timestamps();
         });
     }
